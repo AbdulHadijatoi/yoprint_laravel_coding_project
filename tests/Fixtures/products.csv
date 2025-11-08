@@ -1,0 +1,5 @@
+UNIQUE_KEY,PRODUCT_TITLE,PRODUCT_DESCRIPTION,STYLE#,AVAILABLE_SIZES,BRAND_LOGO_IMAGE,THUMBNAIL_IMAGE,COLOR_SWATCH_IMAGE,PRODUCT_IMAGE,SPEC_SHEET,PRICE_TEXT,SIZE,COLOR_NAME,SANMAR_MAINFRAME_COLOR,PIECE_PRICE,DOZENS_PRICE,CASE_PRICE
+ABC123,Test Product,Desc one,ST-1,"S,M,L",logo.png,thumb.png,swatch.png,product.png,spec.pdf,"$9.99",L,Red,Scarlet,9.99,12.99,99.99
+ABC123,Test Product Updated,Updated description,ST-1,"S,M,L",logo.png,thumb.png,swatch.png,product.png,spec.pdf,"$10.99",L,Red,Scarlet,10.99,13.99,101.00
+XYZ789,Another Product,Another description,ST-2,"M,L",logo2.png,thumb2.png,swatch2.png,product2.png,spec2.pdf,"$5.50",M,Blue,Azure,5.50,8.50,55.00
+
