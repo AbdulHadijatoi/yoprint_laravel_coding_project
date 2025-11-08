@@ -55,4 +55,18 @@
 
 ---
 
+## 🗂️ Large File Uploads (40 MB)
+
+If uploads around 40 MB fail, adjust the stack in this order:
+
+1. **PHP limits** – in `php.ini` (or `.ini` overrides) set  
+   `upload_max_filesize=50M`, `post_max_size=55M`, optionally raise `max_execution_time`/`memory_limit`. Restart PHP-FPM or your dev server.
+2. **Web server** – update Nginx `client_max_body_size 55m;` or Apache `LimitRequestBody` (and reload).
+3. **Laravel validation** – ensure validation rules allow the size, e.g. `max:51200` (kilobytes) in form requests.
+4. **Storage** – confirm the target disk has space and correct permissions.
+
+After these changes a 40 MB file should upload successfully. For very slow connections consider chunked uploads or background processing.
+
+---
+
 Need more? Reach out to the maintainers or open an issue in the repository. Happy building! 🎉
