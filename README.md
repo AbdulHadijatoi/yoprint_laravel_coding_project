@@ -23,6 +23,7 @@
    ```bash
    composer install
    php artisan migrate
+   php artisan db:seed --class=ProductDemoSeeder   # optional demo data
    ```
 4. **Serve**
    ```bash
@@ -49,6 +50,7 @@
 | --- | --- |
 | Reset schema | `php artisan migrate:fresh` |
 | Seed database | `php artisan db:seed` |
+| Demo catalog | `php artisan db:seed --class=ProductDemoSeeder` |
 | Run tests | `composer run test` |
 | Run artisan tests | `php artisan test` |
 | Format (Pint) | `./vendor/bin/pint` |
@@ -66,6 +68,32 @@ If uploads around 40 MB fail, adjust the stack in this order:
 4. **Storage** – confirm the target disk has space and correct permissions.
 
 After these changes a 40 MB file should upload successfully. For very slow connections consider chunked uploads or background processing.
+
+---
+
+## 🤖 Continuous Integration
+
+- GitHub Actions workflow (`.github/workflows/ci.yml`) runs on pushes & PRs.
+- Steps: install dependencies, migrate with SQLite, enforce Pint formatting, execute the test suite in parallel.
+- Keeps reviewers confident the project is stable and style-compliant.
+
+---
+
+## 🧠 Architecture Highlights
+
+- **Asynchronous ingestion** – uploads create a `ProductUpload` record and queue `ProcessProductUpload`, so large CSVs don’t block HTTP requests.
+- **Importer service** – `App\Services\ProductCsvImporter` centralizes CSV parsing, normalization, and upsert logic for `Product` models.
+- **File lifecycle** – `App\Models\File` wraps storage & checksum tracking, automatically cleans up files when associated uploads are deleted.
+- **Demo data** – `ProductDemoSeeder` provisions a realistic catalog snapshot tied to a completed upload, helpful for reviewers exploring UI/API responses.
+- Full write-up lives in `docs/ARCHITECTURE.md`.
+
+---
+
+## 🔭 Future Enhancements
+
+- Swap SQLite for PostgreSQL in CI to exercise JSON column queries under heavier load.
+- Add a front-end progress indicator via broadcasting when uploads complete.
+- Ship pre-signed download links for original CSV files with retention policies.
 
 ---
 

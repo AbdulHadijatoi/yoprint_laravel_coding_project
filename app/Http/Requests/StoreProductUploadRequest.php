@@ -27,7 +27,7 @@ class StoreProductUploadRequest extends FormRequest
             'file' => [
                 'required',
                 'file',
-                'max:20480',
+                'max:51200',
                 'mimetypes:text/plain,text/csv,text/tab-separated-values,application/vnd.ms-excel',
                 'mimes:csv,txt,tsv',
             ],
